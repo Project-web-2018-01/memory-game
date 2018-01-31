@@ -1,5 +1,7 @@
 $(function() {
 	var gameDifficulty;
+	var gamePairItems = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"];
+	var itemsOrder;
 
 	$("#easy").click(function() { changeDifficulty("easy") });
 	$("#normal").click(function() { changeDifficulty("normal") });
@@ -29,13 +31,13 @@ $(function() {
 	function startGame() {
 		$("#gameStarter").animate({"opacity": 0}, 500, function() {
 			$("#gameStarter").css("display", "none");
-			generateItems();
+			setBoard();
 			$("#game-container").css("display", "grid");
 			$("#game-container").animate({"opacity": 1}, 500);
 		});
 	}
 
-	function generateItems() {
+	function setBoard() {
 		switch(gameDifficulty) {
 			case "easy":
 				var numberOfItems = 12;
@@ -50,12 +52,41 @@ $(function() {
 				$("#game-container").addClass("grid-hard");
 				break;
 		}
+		AddItemsToBoard(numberOfItems);
+	}
 
+	function AddItemsToBoard(numberOfItems) {
+		var itemsOrder = getItemsOrder(numberOfItems);
+		console.log(itemsOrder);
 		for(var i = 0; i<numberOfItems; i++) {
-			var $item = $("<div>").addClass("grid-item");
+			var pairId = "pair-"+itemsOrder[i];
+			var pairImg = "url(../images/"+gamePairItems[itemsOrder[i]]+")";
+			var $item = $("<div>").attr("data-pair-id", pairId).css("background-image", pairImg).addClass("grid-item");
 			$("#game-container").append($item);
-			console.log(i);
 		}
+	}
+
+	function getItemsOrder(numberOfItems) {
+		var beforeShuffle = [];
+
+		for (var i = 1; i <= numberOfItems/2; i++) {
+			beforeShuffle.push(i);
+			beforeShuffle.push(i);
+		}
+		
+		itemsOrder = shuffleArray(beforeShuffle);
+		return itemsOrder;
+	}
+
+	function shuffleArray(array) {
+		var j, cache;
+		for (var i = array.length-1; i > 0; i--) {
+			j = Math.floor(Math.random() * (i - 1));
+			cache = array[i];
+			array[i] = array[j];
+			array[j] = cache;
+		}
+		return array;
 	}
 });
 
