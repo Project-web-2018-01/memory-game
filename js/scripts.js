@@ -1,4 +1,123 @@
+$(function() {
+	var gameDifficulty;
 
+	$("#easy").click(function() { changeDifficulty("easy") });
+	$("#normal").click(function() { changeDifficulty("normal") });
+	$("#hard").click(function() { changeDifficulty("hard") });
+
+	function changeDifficulty(level) {
+		switch(level) {
+			case "easy":
+				gameDifficulty = "easy";
+				$("#board-size-text").text("Board size: 4x3");
+				break;
+			case "normal":
+				gameDifficulty = "normal";
+				$("#board-size-text").text("Board size: 4x4");
+				break;
+			case "hard":
+				gameDifficulty = "hard";
+				$("#board-size-text").text("Board size: 5x4");
+				break;
+		}
+	}
+
+	changeDifficulty("easy");
+
+	$("#play-btn").click(function() { startGame(); });
+
+	function startGame() {
+		$("#gameStarter").animate({"opacity": 0}, 500, function() {
+			$("#gameStarter").css("display", "none");
+			generateItems();
+			$("#game-container").css("display", "grid");
+			$("#game-container").animate({"opacity": 1}, 500);
+		});
+	}
+
+	function generateItems() {
+		switch(gameDifficulty) {
+			case "easy":
+				var numberOfItems = 12;
+				$("#game-container").addClass("grid-easy");
+				break;
+			case "normal":
+				var numberOfItems = 16;
+				$("#game-container").addClass("grid-normal");
+				break;
+			case "hard":
+				var numberOfItems = 20;
+				$("#game-container").addClass("grid-hard");
+				break;
+		}
+
+		for(var i = 0; i<numberOfItems; i++) {
+			var $item = $("<div>").addClass("grid-item");
+			$("#game-container").append($item);
+			console.log(i);
+		}
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", "geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
 
 //alert(cards[4]);
@@ -53,7 +172,7 @@ function revealCard(nr)
 		
 		//alert(nr);
 	
-		var obraz = "url(../images/" + cards[nr] + ")";
+		var obraz = "url(images/" + cards[nr] + ")";
 		
 		$('#c'+nr).css('background-image', obraz);
 		$('#c'+nr).addClass('cardA');
@@ -121,3 +240,5 @@ function restore2Cards(nr1, nr2)
 	
 	lock = false;
 }
+*/
+

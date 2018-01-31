@@ -3,35 +3,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>The Witcher Memory Game</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Memory Game</title>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Lobster&amp;subset=latin-ext" rel="stylesheet">
-	</head>
-	<body>
-		<header>
-			<h1>The Witcher Memory Game</h1>
-			<p>Inspired by <a href="https://www.playgwent.com/pl" target="_blank">Gwent - The Witcher Card Game</a></p>
-		</header>
-		<main>
-			<article>
-				<div class="board">			
-					<div class="card" id="c0"></div>
-					<div class="card" id="c1"></div>
-					<div class="card" id="c2"></div>
-					<div class="card" id="c3"></div>
-					<div class="card" id="c4"></div>
-					<div class="card" id="c5"></div>
-					<div class="card" id="c6"></div>
-					<div class="card" id="c7"></div>	
-					<div class="card" id="c8"></div>
-					<div class="card" id="c9"></div>
-					<div class="card" id="c10"></div>
-					<div class="card" id="c11"></div>
-					<div class="score">Turn counter: 0</div>
-				</div>
-			</article>
-		</main>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script src="js/scripts.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Memory Game</h1>
+			<div id="game-container" class="grid">
+			</div>
+			<div id="gameStarter">
+				<p>Choose difficulty level</p>
+				<div class="dif-btn-container">
+					<button id="easy" class="btn" autofocus>Easy</button>
+					<button id="normal" class="btn">Normal</button>
+					<button id="hard" class="btn">Hard</button>
+				</div>
+				<p id="board-size-text">Board size: 4x3</p>
+				<button id="play-btn" class="btn">Play</button>
+			</div>
+		</div>
 	</body>
 </html>
