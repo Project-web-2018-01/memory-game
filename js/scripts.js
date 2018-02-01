@@ -57,10 +57,10 @@ $(function() {
 
 	function AddItemsToBoard(numberOfItems) {
 		var itemsOrder = getItemsOrder(numberOfItems);
-		console.log(itemsOrder);
+
 		for(var i = 0; i<numberOfItems; i++) {
 			var pairId = "pair-"+itemsOrder[i];
-			var pairImg = "url(images/" + gamePairItems[itemsOrder[i]] + ")";
+			var pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")";
 			var $item = $("<div>").attr("data-pair-id", pairId).css("background-image", pairImg).addClass("grid-item");
 			$("#game-container").append($item);
 		}
