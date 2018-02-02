@@ -94,13 +94,13 @@ h1 {
 }
 
 .card-pick-animation-matching {
-  -webkit-animation: successPick 0.45s cubic-bezier(0.09, 1.27, 0.84, 0.86) 1s 1;
-          animation: successPick 0.45s cubic-bezier(0.09, 1.27, 0.84, 0.86) 1s 1;
+  -webkit-animation: successPick 0.45s cubic-bezier(0.09, 1.27, 0.84, 0.86) 0.7s 1;
+          animation: successPick 0.45s cubic-bezier(0.09, 1.27, 0.84, 0.86) 0.7s 1;
 }
 
 .card-pick-animation-not-matching {
-  -webkit-animation: failurePick 0.35s cubic-bezier(0.28, 1.15, 0.83, 0.67) 1s 1;
-          animation: failurePick 0.35s cubic-bezier(0.28, 1.15, 0.83, 0.67) 1s 1;
+  -webkit-animation: failurePick 0.35s cubic-bezier(0.28, 1.15, 0.83, 0.67) 0.7s 1;
+          animation: failurePick 0.35s cubic-bezier(0.28, 1.15, 0.83, 0.67) 0.7s 1;
 }
 
 .matched-pairs {
@@ -279,87 +279,4 @@ h1 {
     border-color: #F44336;
   }
 }
-
-/*
-body
-{
-	margin: 0;
-	background-color: #26282E;
-	color: #209781;
-    font-size: 28px;
-}
-
-a:link    { color: #209781; text-decoration: none; }
-a:visited { color: #209781; }
-a:active  { color: #209781; }
-a:hover   { color: #E9B64A; }
-
-h1
-{
-	font-size: 64px;
-	font-weight: 400;
-	text-align: center;
-	letter-spacing: 5px;
-	margin-top: 20px;
-	margin-bottom: 0px;
-}
-
-p
-{
-	text-align: center;
-	margin-top: 5px;
-	margin-bottom: 25px;
-	letter-spacing: 2px;
-}
-
-.board
-{
-	width: 60%;
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
-.cardA
-{
-	width: 125px;
-	height: 160px;
-	display: inline-block;
-	margin: 3px;
-	background: #000;
-	border: 4px solid #e9b64a;
-	border-radius: 4px;
-	cursor: default;
-	filter: brightness(100%);
-	transition: all .3s ease-in-out;
-}
-
-.card
-{
-	width: 125px;
-	height: 160px;
-	display: inline-block;
-	margin: 3px;
-	background: #000;
-	border: 4px solid #51c8b2;
-	border-radius: 4px;
-	cursor: pointer;
-	filter: brightness(70%);
-	transition: all .3s ease-in-out;
-}
-
-.card:hover
-{
-	border: 4px solid #e9b64a;
-	filter: brightness(100%);
-}
-
-.score
-{
-	margin-top: 5px;
-	letter-spacing: 2px;
-}
-
-*/
 /*# sourceMappingURL=style.css.map */
