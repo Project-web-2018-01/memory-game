@@ -84,6 +84,19 @@ h1 {
 	transform: rotateY(0deg);
 }
 
+.card-pick-animation-matching {
+	animation: successPick .45s cubic-bezier(.09,1.27,.84,.86) 1s 1;
+}
+
+.card-pick-animation-not-matching {
+	animation: failurePick .35s cubic-bezier(.28,1.15,.83,.67) 1s 1;
+}
+
+.matched-pairs {
+	border-color: #4CAF50;
+	cursor: default;
+}
+
 #gameStarter {
 	max-width: 500px;
 	margin: 50px auto;
@@ -137,6 +150,43 @@ h1 {
 }
 
 #play-btn:active { color: #4CAF50; background: #fff; }
+
+@keyframes successPick {
+	0% {
+		transform: scale(1) rotateY(180deg);
+	}
+	50% {
+		transform: scale(1.1) rotateY(180deg);
+		border-color: #4CAF50;
+	}
+	100% {
+		transform: scale(1) rotateY(180deg);
+		border-color: #4CAF50;
+	}
+}
+
+@keyframes failurePick {
+	0% {
+		transform: translateX(0) rotateY(180deg);
+		border-color: #F44336;
+	}
+	25% {
+		transform: translateX(-10px) rotateY(180deg);
+		border-color: #F44336;
+	}
+	50% {
+		transform: translateX(10px) rotateY(180deg);
+		border-color: #F44336;
+	}
+	75% {
+		transform: translateX(-10px) rotateY(180deg);
+		border-color: #F44336;
+	}
+	100% {
+		transform: translateX(0) rotateY(180deg);
+		border-color: #F44336;
+	}
+}
 
 
 

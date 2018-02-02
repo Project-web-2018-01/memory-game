@@ -110,16 +110,36 @@ $(function() {
 				console.log("para!");
 				$(element).off('click');
 				$(flippedCardCache).off('click');
+				animateCardPick(true, element, flippedCardCache);
 				flippedCardCache = undefined;
 			} else {
+				animateCardPick(false, element, flippedCardCache);
 				setTimeout(function() {
 					$(element).removeClass("grid-item-flipped");
 					$(flippedCardCache).removeClass("grid-item-flipped");
 					flippedCardCache = undefined;
-				}, 1000);
+				}, 1500);
 			}
 
 			setTimeout(function() { lockCardFlipping = false; }, 1000);
+		}
+	}
+
+	function animateCardPick(matchingPair, element1, element2) {
+		if (matchingPair) {
+			$(element1).addClass("card-pick-animation-matching");
+			$(element2).addClass("card-pick-animation-matching");
+			setTimeout(function() {
+				$(element1).addClass("matched-pairs");
+				$(element2).addClass("matched-pairs");
+			}, 1450);
+		} else {
+			$(element1).addClass("card-pick-animation-not-matching");
+			$(element2).addClass("card-pick-animation-not-matching");
+			setTimeout(function() {
+				$(element1).removeClass("card-pick-animation-not-matching");
+				$(element2).removeClass("card-pick-animation-not-matching");
+			}, 1400);
 		}
 	}
 });
