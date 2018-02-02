@@ -1,5 +1,5 @@
 $(function() {
-	var gameDifficulty, itemsOrder, flippedCardCache;
+	var gameDifficulty, itemsOrder, flippedCardCache, lockCardFlipping = false;
 	var gamePairItems = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"];
 
 	$("#easy").click(function() { changeDifficulty("easy") });
@@ -58,10 +58,14 @@ $(function() {
 		var itemsOrder = getItemsOrder(numberOfItems);
 
 		for(var i = 0; i<numberOfItems; i++) {
-			var pairId = "pair-"+itemsOrder[i];
-			//var pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")";
-			var $item = $("<div>").attr("data-pair-id", pairId)/*.css("background-image", pairImg)*/.addClass("grid-item").css("background-image", "url(images/questionmark.png)");
-			$item.click(function() { 
+			var pairId = "pair-"+itemsOrder[i],
+			pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")",
+
+			$item = $("<div>").attr("data-pair-id", pairId).addClass("grid-item"),
+			$itemBack = $("<div>").css("background-image", pairImg).addClass("item-back"),
+			$itemFront = $("<div>").css("background-image", "url(images/questionmark.png)").addClass("item-front");
+			$($item).append($itemBack, $itemFront);
+			$item.on('click', function() { 
 				revealCard(this); 
 			});
 			$("#game-container").append($item);
@@ -92,26 +96,30 @@ $(function() {
 	}
 
 	function revealCard(element) {
-		if (flippedCardCache === undefined) {
-			var clickedPair = $(element).data("pair-id");
-			clickedPair = clickedPair.slice(-1);
-			$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
+		if (flippedCardCache === undefined && !lockCardFlipping) {
+			lockCardFlipping = true;
+			$(element).addClass("grid-item-flipped");
 			flippedCardCache = element;
-		} else if ((typeof flippedCardCache) === 'object'){
-			var clickedPairId = $(element).data("pair-id"),
-			clickedPair = clickedPairId.slice(-1);
-			$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
+			lockCardFlipping = false;
+		} else if ((typeof flippedCardCache) === 'object' && !lockCardFlipping){
+			lockCardFlipping = true;
+			var clickedPairId = $(element).data("pair-id");
+			$(element).addClass("grid-item-flipped");
 
 			if ($(flippedCardCache).data("pair-id") == clickedPairId) {
 				console.log("para!");
+				$(element).off('click');
+				$(flippedCardCache).off('click');
 				flippedCardCache = undefined;
 			} else {
 				setTimeout(function() {
-					$(element).css("background-image", "url(images/questionmark.png)");
-					$(flippedCardCache).css("background-image", "url(images/questionmark.png)");
+					$(element).removeClass("grid-item-flipped");
+					$(flippedCardCache).removeClass("grid-item-flipped");
 					flippedCardCache = undefined;
 				}, 1000);
 			}
+
+			setTimeout(function() { lockCardFlipping = false; }, 1000);
 		}
 	}
 });
