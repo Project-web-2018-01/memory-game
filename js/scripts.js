@@ -1,7 +1,6 @@
 $(function() {
-	var gameDifficulty;
+	var gameDifficulty, itemsOrder, flippedCardCache;
 	var gamePairItems = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"];
-	var itemsOrder;
 
 	$("#easy").click(function() { changeDifficulty("easy") });
 	$("#normal").click(function() { changeDifficulty("normal") });
@@ -93,9 +92,27 @@ $(function() {
 	}
 
 	function revealCard(element) {
-		var clickedPair = $(element).data("pair-id");
-		clickedPair = clickedPair.slice(-1);
-		$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
+		if (flippedCardCache === undefined) {
+			var clickedPair = $(element).data("pair-id");
+			clickedPair = clickedPair.slice(-1);
+			$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
+			flippedCardCache = element;
+		} else if ((typeof flippedCardCache) === 'object'){
+			var clickedPairId = $(element).data("pair-id"),
+			clickedPair = clickedPairId.slice(-1);
+			$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
+
+			if ($(flippedCardCache).data("pair-id") == clickedPairId) {
+				console.log("para!");
+				flippedCardCache = undefined;
+			} else {
+				setTimeout(function() {
+					$(element).css("background-image", "url(images/questionmark.png)");
+					$(flippedCardCache).css("background-image", "url(images/questionmark.png)");
+					flippedCardCache = undefined;
+				}, 1000);
+			}
+		}
 	}
 });
 
