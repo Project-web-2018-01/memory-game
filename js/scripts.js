@@ -60,8 +60,11 @@ $(function() {
 
 		for(var i = 0; i<numberOfItems; i++) {
 			var pairId = "pair-"+itemsOrder[i];
-			var pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")";
-			var $item = $("<div>").attr("data-pair-id", pairId).css("background-image", pairImg).addClass("grid-item");
+			//var pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")";
+			var $item = $("<div>").attr("data-pair-id", pairId)/*.css("background-image", pairImg)*/.addClass("grid-item").css("background-image", "url(images/questionmark.png)");
+			$item.click(function() { 
+				revealCard(this); 
+			});
 			$("#game-container").append($item);
 		}
 	}
@@ -87,6 +90,12 @@ $(function() {
 			array[j] = cache;
 		}
 		return array;
+	}
+
+	function revealCard(element) {
+		var clickedPair = $(element).data("pair-id");
+		clickedPair = clickedPair.slice(-1);
+		$(element).css("background-image", "url(images/"+gamePairItems[clickedPair]+")");
 	}
 });
 
