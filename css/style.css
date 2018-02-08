@@ -305,5 +305,11 @@ h1 {
     font-weight: 700;
     margin: 10px 0;
   }
+  #gameStarter {
+    border: none;
+  }
+  #game-container {
+    margin-top: 10px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
