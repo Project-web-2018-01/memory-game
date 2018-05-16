@@ -1,6 +1,20 @@
 $(function() {
+	/*
+
 	var gameDifficulty, itemsOrder, flippedCardCache, lockCardFlipping = false , pairsLeft;
 	var gamePairItems = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"];
+
+	*/
+	var basicGameObject = {
+		gameDifficulty: "easy",
+		itemsOrder: null,
+		flippedCardCache: undefined,
+		lockCardFlipping: false,
+		pairsLeft: null,
+		gamePairItems: ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"]
+	};
+
+	var gameObject = basicGameObject;
 
 	$("#easy").click(function() { changeDifficulty("easy") });
 	$("#normal").click(function() { changeDifficulty("normal") });
@@ -9,15 +23,15 @@ $(function() {
 	function changeDifficulty(level) {
 		switch(level) {
 			case "easy":
-				gameDifficulty = "easy";
+				gameObject.gameDifficulty = "easy";
 				$("#board-size-text").text("Board size: 4x3");
 				break;
 			case "normal":
-				gameDifficulty = "normal";
+				gameObject.gameDifficulty = "normal";
 				$("#board-size-text").text("Board size: 4x4");
 				break;
 			case "hard":
-				gameDifficulty = "hard";
+				gameObject.gameDifficulty = "hard";
 				$("#board-size-text").text("Board size: 5x4");
 				break;
 		}
@@ -37,7 +51,7 @@ $(function() {
 	}
 
 	function setBoard() {
-		switch(gameDifficulty) {
+		switch(gameObject.gameDifficulty) {
 			case "easy":
 				var numberOfItems = 12;
 				$("#game-container").addClass("grid-easy");
@@ -51,16 +65,16 @@ $(function() {
 				$("#game-container").addClass("grid-hard");
 				break;
 		}
-		pairsLeft = numberOfItems / 2;
+		gameObject.pairsLeft = numberOfItems / 2;
 		AddItemsToBoard(numberOfItems);
 	}
 
 	function AddItemsToBoard(numberOfItems) {
-		var itemsOrder = getItemsOrder(numberOfItems);
+		getItemsOrder(numberOfItems);
 
 		for(var i = 0; i<numberOfItems; i++) {
-			var pairId = "pair-"+itemsOrder[i],
-			pairImg = "url(images/" + gamePairItems[itemsOrder[i]-1] + ")",
+			var pairId = "pair-"+gameObject.itemsOrder[i],
+			pairImg = "url(images/" + gameObject.gamePairItems[gameObject.itemsOrder[i]-1] + ")",
 
 			$item = $("<div>").attr("data-pair-id", pairId).addClass("grid-item"),
 			$itemBack = $("<div>").css("background-image", pairImg).addClass("item-back"),
@@ -81,8 +95,7 @@ $(function() {
 			beforeShuffle.push(i);
 		}
 		
-		itemsOrder = shuffleArray(beforeShuffle);
-		return itemsOrder;
+		gameObject.itemsOrder = shuffleArray(beforeShuffle);
 	}
 
 	function shuffleArray(array) {
@@ -97,35 +110,35 @@ $(function() {
 	}
 
 	function revealCard(element) {
-		if (flippedCardCache === undefined && !lockCardFlipping) {
-			lockCardFlipping = true;
+		if (gameObject.flippedCardCache === undefined && !gameObject.lockCardFlipping) {
+			gameObject.lockCardFlipping = true;
 			$(element).addClass("grid-item-flipped").off('click'); // prevent clicking the same card twice
-			flippedCardCache = element;
-			lockCardFlipping = false;
-		} else if ((typeof flippedCardCache) === 'object' && !lockCardFlipping){
-			lockCardFlipping = true;
+			gameObject.flippedCardCache = element;
+			gameObject.lockCardFlipping = false;
+		} else if ((typeof gameObject.flippedCardCache) === 'object' && !gameObject.lockCardFlipping){
+			gameObject.lockCardFlipping = true;
 			var clickedPairId = $(element).data("pair-id");
 			$(element).addClass("grid-item-flipped");
 
-			if ($(flippedCardCache).data("pair-id") == clickedPairId) {
+			if ($(gameObject.flippedCardCache).data("pair-id") == clickedPairId) {
 				console.log("para!");
 				$(element).off('click');
-				$(flippedCardCache).off('click');
-				animateCardPick(true, element, flippedCardCache);
-				flippedCardCache = undefined;
-				pairsLeft--;
+				$(gameObject.flippedCardCache).off('click');
+				animateCardPick(true, element, gameObject.flippedCardCache);
+				gameObject.flippedCardCache = undefined;
+				gameObject.pairsLeft--;
 			} else {
-				animateCardPick(false, element, flippedCardCache);
+				animateCardPick(false, element, gameObject.flippedCardCache);
 				setTimeout(function() {
 					$(element).removeClass("grid-item-flipped");
-					$(flippedCardCache).removeClass("grid-item-flipped");
-					flippedCardCache = undefined;
+					$(gameObject.flippedCardCache).removeClass("grid-item-flipped");
+					gameObject.flippedCardCache = undefined;
 				}, 1200);
 			}
 
-			setTimeout(function() { lockCardFlipping = false; }, 1250);
+			setTimeout(function() { gameObject.lockCardFlipping = false; }, 1250);
 
-			$(flippedCardCache).on('click', function() { // prevent clicking the same card twice
+			$(gameObject.flippedCardCache).on('click', function() { // prevent clicking the same card twice
 				revealCard(this); 
 			});
 			checkGameEnd();
@@ -151,6 +164,20 @@ $(function() {
 	}
 
 	function checkGameEnd() {
-		
+		if(gameObject.pairsLeft===0) {
+			setTimeout(endGame, 1500);
+		}
+	}
+
+	function endGame() {
+		$("#game-container").animate({"opacity": 0}, 500, function() {
+			$("#game-container").css("display", "none");
+			gameObject = basicGameObject;
+			$("#game-container").empty();
+			$("#chooseDifficultyP").css("display", "none");
+			$("#playAgainP").css("display", "block");
+			$("#gameStarter").css("display", "block");
+			$("#gameStarter").animate({"opacity": 1}, 500);
+		});
 	}
 });

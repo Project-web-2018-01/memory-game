@@ -1,5 +1,5 @@
 {
-  "name": "learning-git-2",
+  "name": "psd-to-html-conversion-package",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,25 +24,21 @@
     "watch:autoprefixer": "autoprefixer-cli -o css/style.css css/style.css",
     "watch:browsersync": "node_modules/.bin/browser-sync --server --files \"css/*.css,*.html\" "
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/marcinw99/learning-git-2.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/marcinw99/learning-git-2/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/marcinw99/learning-git-2#readme",
-  "dependencies": {
+  "homepage": "",
+  "devDependencies": {
     "autoprefixer-cli": "^1.0.0",
-    "browser-sync": "^2.19.0",
+    "browser-sync": "^2.24.4",
     "glob-run": "^0.1.6",
     "jshint": "^2.9.5",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.0",
     "nu-html-checker": "^0.1.0",
-    "onchange": "^3.3.0",
+    "onchange": "^4.0.0",
     "parallelshell": "^3.0.2",
     "rimraf": "^2.6.2"
   }

@@ -126,6 +126,10 @@ h1 {
   padding: 10px 20px;
 }
 
+#playAgainP {
+  display: none;
+}
+
 .dif-btn-container {
   display: -webkit-box;
   display: -ms-flexbox;
